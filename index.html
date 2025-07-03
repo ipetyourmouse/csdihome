@@ -86,8 +86,8 @@
                 source: 'polygons',
                 'source-layer': 'CSDI_2025', // Replace with the correct source layer name
                 paint: {
-                    'fill-color': '#0000FF', // Default blue color
-                    'fill-opacity': 0.7
+                    'fill-color': '#6FA8DC', // Default blue color
+                    'fill-opacity': 0.5
                 }
             });
             map.addLayer({
@@ -108,14 +108,14 @@
                     const feature = e.features[0];
                     const town = feature.properties.town;
                     if (currentHoveredTown !== null && currentHoveredTown !== town) {
-                        map.setPaintProperty('polygons-layer', 'fill-color', '#0000FF'); // Reset to blue
+                        map.setPaintProperty('polygons-layer', 'fill-color', '#6FA8DC'); // Reset to blue
                         document.getElementById('left-info').style.display = 'none';
                         document.getElementById('right-info').style.display = 'none';
                     }
                     currentHoveredTown = town;
                     map.setPaintProperty('polygons-layer', 'fill-color', ['case',
-                        ['==', ['get', 'town'], town], '#FF0000', // Red for hovered town
-                        '#0000FF' // Blue for others
+                        ['==', ['get', 'town'], town], '#F4CCCC', // Red for hovered town
+                        '#6FA8DC' // Blue for others
                     ]);
 
                     // Left info box (Scores)
@@ -137,10 +137,10 @@
                     rightInfo.style.display = 'block';
                     rightInfo.innerHTML = `<h3>Public opinions</h3>
                         <div>Public Score: <div class="progress-bar"><div class="progress" style="width: 50%; background: #9C27B0;">5</div></div></div>
-                        <div class="comment"><img src="Comment A.jpg" alt="Profile"> <span style="font-family: Calibri"><small>hoiyaul<br>天水圍商場多，但係入面得個吉，得7仔同一間麵包鋪<br>2025-07-04</small></span></div>
-                        <div class="comment"><img src="Comment B.jpg" alt="Profile"> <span style="font-family: Calibri"><small>sheksammm__<br>上水出名烏煙瘴氣，起唔起公園都一樣<br>2025-07-02</small></span></div>
-                        <div class="comment"><img src="Comment C.jpg" alt="Profile"> <span>raymondtong0524</span>: 最近去保榮路嗰間體育館，其實可唔可以開多間？我喺嘉福行過嚟好遠。 <span>2025-06-30</span></div>
-			<div class="comment"><img src="Comment D.jpg" alt="Profile"> <span>hellothisisderekah</span>: 元朗大馬路點解咁窄！？ <span>2025-06-30</span></div>`;
+                        <div class="comment"><img src="Comment A.jpg" alt="Profile"> <span><small>hoiyaul<br>天水圍商場多，但係入面得個吉，得7仔同一間麵包鋪<br>2025-07-04</small></span></div>
+                        <div class="comment"><img src="Comment B.jpg" alt="Profile"> <span><small>sheksammm__<br>上水出名烏煙瘴氣，起唔起公園都一樣<br>2025-07-02</small></span></div>
+                        <div class="comment"><img src="Comment C.jpg" alt="Profile"> <span><small>raymondtong0524<br>最近去保榮路嗰間體育館，其實可唔可以開多間？我喺嘉福行過嚟好遠。<br>2025-06-30</small></span></div>
+			<div class="comment"><img src="Comment D.jpg" alt="Profile"> <span><small>hellothisisderekah<br>元朗大馬路點解咁窄！？<br>2025-06-30</small></span></div>`;
                 }
             });
 
