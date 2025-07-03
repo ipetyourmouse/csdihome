@@ -16,6 +16,7 @@
             background: white;
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+	    font-family: Calibri
         }
         #left-info { left: 20px; width: 200px; }
         #right-info { right: 20px; width: 200px; }
@@ -34,17 +35,27 @@
         .donut-chart {
             width: 100px;
             height: 100px;
-            background: conic-gradient(#4CAF50 0% 40%, #2196F3 40% 70%, #F44336 70% 100%);
+            background: conic-gradient(#4CAF50 0% var(--score-percentage), #e0e0e0 var(--score-percentage) 100%);
             border-radius: 50%;
             margin: 10px auto;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .donut-chart::before {
+            content: '';
+            width: 70px;
+            height: 70px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 1;
         }
         .donut-chart::after {
             content: attr(data-score);
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            z-index: 2;
             font-size: 20px;
             color: black;
         }
@@ -98,6 +109,7 @@
                 layout: {
                     'text-field': ['get', 'town'],
                     'text-size': 12
+		    'text-font': 'Calibri'
                 }
             });
 
@@ -114,7 +126,7 @@
                     }
                     currentHoveredTown = town;
                     map.setPaintProperty('polygons-layer', 'fill-color', ['case',
-                        ['==', ['get', 'town'], town], '#F4CCCC', // Red for hovered town
+                        ['==', ['get', 'town'], town], '#EA9999', // Red for hovered town
                         '#6FA8DC' // Blue for others
                     ]);
 
@@ -126,11 +138,11 @@
                     const score_leisure = feature.properties.score_leisure || 5;
                     const overallScore = (score_os * 40) + (score_malls * 30) + (score_leisure * 30);
                     leftInfo.innerHTML = `<h3>Scores</h3>
-                        <div class="donut-chart" data-score="${overallScore / 10}"></div>
-                        <div>OS: <div class="progress-bar"><div class="progress" style="width: ${score_os * 10}%; background: #4CAF50;">${score_os * 10}</div></div></div>
-                        <div>Malls: <div class="progress-bar"><div class="progress" style="width: ${score_malls * 10}%; background: #2196F3;">${score_malls * 10}</div></div></div>
-                        <div>Leisure: <div class="progress-bar"><div class="progress" style="width: ${score_leisure * 10}%; background: #F44336;">${score_leisure * 10}</div></div></div>
-                        <a href="https://ipetyourmouse.github.io/csdiprototype/">See more details</a>`;
+                        <div class="donut-chart" style="--score-percentage: ${scorePercentage}%;" data-score="${scorePercentage}"></div>
+                        <div>OS: <div class="progress-bar"><div class="progress" style="width: ${score_os * 100}%; background: #4CAF50;">${score_os * 10}</div></div></div>
+                        <div>Malls: <div class="progress-bar"><div class="progress" style="width: ${score_malls * 100}%; background: #2196F3;">${score_malls * 10}</div></div></div>
+                        <div>Leisure: <div class="progress-bar"><div class="progress" style="width: ${score_leisure * 100}%; background: #F44336;">${score_leisure * 10}</div></div></div>
+                        <a href="https://ipetyourmouse.github.io/csdiprototype/">See details</a>`;
 
                     // Right info box (Public opinions)
                     const rightInfo = document.getElementById('right-info');
