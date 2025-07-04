@@ -16,7 +16,7 @@
             background: white;
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-	    font-family: Calibri
+	    font-family: Calibri;
         }
         #left-info { left: 20px; width: 200px; }
         #right-info { right: 20px; width: 200px; }
@@ -108,8 +108,8 @@
                 'source-layer': 'CSDI_2025', // Replace with the correct source layer name
                 layout: {
                     'text-field': ['get', 'town'],
-                    'text-size': 12
-		    'text-font': 'Calibri'
+                    'text-size': 12,
+		    'text-font': ['Inter Regular']
                 }
             });
 
@@ -137,6 +137,7 @@
                     const score_malls = feature.properties.score_malls || 5;
                     const score_leisure = feature.properties.score_leisure || 5;
                     const overallScore = (score_os * 40) + (score_malls * 30) + (score_leisure * 30);
+		            const scorePercentage = overallScore; // Convert to percentage (0-100);
                     leftInfo.innerHTML = `<h3>Scores</h3>
                         <div class="donut-chart" style="--score-percentage: ${scorePercentage}%;" data-score="${scorePercentage}"></div>
                         <div>OS: <div class="progress-bar"><div class="progress" style="width: ${score_os * 100}%; background: #4CAF50;">${score_os * 10}</div></div></div>
