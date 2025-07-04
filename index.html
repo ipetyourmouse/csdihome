@@ -85,6 +85,38 @@
             zoom: 11
         });
 
+        // Define public scores for each town
+        const publicScoresByTown = {
+            "Tin Shui Wai": 6,
+            "Yuen Long": 4,
+            "Sheung Shui": 7,
+            "Fanling": 5
+        };
+
+        // Define comments for each town
+        const commentsByTown = {
+            "Tin Shui Wai": [
+                { profile: 'Comment A.jpg', username: "hoiyaul", text: "天水圍商場多，但係入面得個吉，得7仔同一間麵包鋪", date: "2025-07-04" },
+                { profile: 'Comment B.jpg', username: "wongwong._.", text: "公園好多蚊，唔太舒服", date: "2025-07-03" },
+                { profile: 'Comment D.jpg', username: "fongchungsirrr", text: "圖書館喺正地鐵站隔離，又靚又方便！", date: "2025-07-02" }
+            ],
+            "Yuen Long": [
+                { profile: 'Comment D.jpg', username: "hellothisisderekah", text: "元朗大馬路點解咁窄！？", date: "2025-07-04" },
+                { profile: 'Comment C.jpg', username: "wong_fe.lix", text: "夜市真係好墟冚", date: "2025-07-01" },
+                { profile: 'Comment A.jpg', username: "trafficobserver", text: "最近博愛加燈位，真係冇咁塞", date: "2025-06-21" }
+            ],
+            "Sheung Shui": [
+                { profile: 'Comment B.jpg', username: "sheksammm__", text: "上水出名烏煙瘴氣，起唔起公園都一樣", date: "2025-07-02" },
+                { profile: 'Comment A.jpg', username: "natalielovesducks", text: "市場新鮮食材多", date: "2025-06-25" },
+                { profile: 'Comment C.jpg', username: "gregorywangngocheung", text: "全港最多樹嘅路就喺天平，呢度算綠化㗎喇", date: "2025-06-23" }
+            ],
+            "Fanling": [
+                { profile: 'Comment C.jpg', username: "raymondtong0524", text: "最近去保榮路嗰間體育館，其實可唔可以開多間？我喺嘉福行過嚟好遠。", date: "2025-06-30" },
+                { profile: 'Comment D.jpg', username: "y__05447", text: "逸峯商場好靚", date: "2025-06-29" },
+                { profile: 'Comment B.jpg', username: "gheuks2xla", text: "想有多個運動場", date: "2025-06-28" }
+            ]
+        };
+
         map.on('load', () => {
             // Add source and layer for polygons
             map.addSource('polygons', {
@@ -147,13 +179,22 @@
 
                     // Right info box (Public opinions)
                     const rightInfo = document.getElementById('right-info');
-                    rightInfo.style.display = 'block';
+		    const publicScore = publicScoresByTown[town] || 5; // Default to 5 if town not found
+		    const comments = commentsByTown[town] || [
+                        { username: "geospatial_lab", text: "No comments available", date: "2025-07-04" },
+                        { username: "geospatial_lab", text: "No comments available", date: "2025-07-04" },
+                        { username: "geospatial_lab", text: "No comments available", date: "2025-07-04" }
+                    ];
+                    rightInfo.style.display = 'block';			
                     rightInfo.innerHTML = `<h3>Public opinions</h3>
-                        <div>Public Score: <div class="progress-bar"><div class="progress" style="width: 50%; background: #9C27B0;">5</div></div></div>
-                        <div class="comment"><img src="Comment A.jpg" alt="Profile"> <span><small>hoiyaul<br>天水圍商場多，但係入面得個吉，得7仔同一間麵包鋪<br>2025-07-04</small></span></div>
-                        <div class="comment"><img src="Comment B.jpg" alt="Profile"> <span><small>sheksammm__<br>上水出名烏煙瘴氣，起唔起公園都一樣<br>2025-07-02</small></span></div>
-                        <div class="comment"><img src="Comment C.jpg" alt="Profile"> <span><small>raymondtong0524<br>最近去保榮路嗰間體育館，其實可唔可以開多間？我喺嘉福行過嚟好遠。<br>2025-06-30</small></span></div>
-			<div class="comment"><img src="Comment D.jpg" alt="Profile"> <span><small>hellothisisderekah<br>元朗大馬路點解咁窄！？<br>2025-06-30</small></span></div>`;
+                        <div>Public Score: <div class="progress-bar"><div class="progress" style="width: ${publicScore * 10}%; background: #9C27B0;">${publicScore}</div></div></div>
+                        ${comments.map(comment => `
+                            <div class="comment">
+                                <img src=${comment.profile} alt="Profile">
+                                <span><small>${comment.username}<br>${comment.text}<br>${comment.date}</small></span>
+                            </div>
+                        `).join('')}
+                    `;
                 }
             });
 
