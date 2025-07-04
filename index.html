@@ -87,10 +87,10 @@
 
         // Define public scores for each town
         const publicScoresByTown = {
-            "Tin Shui Wai": 6,
-            "Yuen Long": 4,
-            "Sheung Shui": 7,
-            "Fanling": 5
+            "Tin Shui Wai": 3,
+            "Yuen Long": -4,
+            "Sheung Shui": 1,
+            "Fanling": 6
         };
 
         // Define comments for each town
@@ -168,14 +168,14 @@
                     const score_os = feature.properties.score_os || 5;
                     const score_malls = feature.properties.score_malls || 5;
                     const score_leisure = feature.properties.score_leisure || 5;
-                    const overallScore = (score_os * 40) + (score_malls * 30) + (score_leisure * 30);
+                    const overallScore = (score_os * 20) + (score_malls * 20) + (score_leisure * 20) + (publicScoresByTown[town] + 10) * 2;
 		            const scorePercentage = overallScore; // Convert to percentage (0-100);
-                    leftInfo.innerHTML = `<h3>Scores</h3>
+                    leftInfo.innerHTML = `<h3>Accessibility score</h3>
                         <div class="donut-chart" style="--score-percentage: ${scorePercentage}%;" data-score="${scorePercentage}"></div>
                         <div>OS: <div class="progress-bar"><div class="progress" style="width: ${score_os * 100}%; background: #4CAF50;">${score_os * 10}</div></div></div>
                         <div>Malls: <div class="progress-bar"><div class="progress" style="width: ${score_malls * 100}%; background: #2196F3;">${score_malls * 10}</div></div></div>
                         <div>Leisure: <div class="progress-bar"><div class="progress" style="width: ${score_leisure * 100}%; background: #F44336;">${score_leisure * 10}</div></div></div>
-                        <a href="https://ipetyourmouse.github.io/csdiprototype/">See details</a>`;
+                        <a href="https://ipetyourmouse.github.io/csdiprototype/">See isochrone map</a>`;
 
                     // Right info box (Public opinions)
                     const rightInfo = document.getElementById('right-info');
@@ -187,7 +187,7 @@
                     ];
                     rightInfo.style.display = 'block';			
                     rightInfo.innerHTML = `<h3>Public opinions</h3>
-                        <div>Public Score: <div class="progress-bar"><div class="progress" style="width: ${publicScore * 10}%; background: #9C27B0;">${publicScore}</div></div></div>
+                        <div>Response: <div class="progress-bar"><div class="progress" style="width: ${(publicScore + 10) * 5}%; background: #9C27B0;">${publicScore}</div></div></div>
                         ${comments.map(comment => `
                             <div class="comment">
                                 <img src='${comment.profile}' alt="Profile">
