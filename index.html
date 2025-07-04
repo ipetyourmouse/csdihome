@@ -190,7 +190,7 @@
                         <div>Public Score: <div class="progress-bar"><div class="progress" style="width: ${publicScore * 10}%; background: #9C27B0;">${publicScore}</div></div></div>
                         ${comments.map(comment => `
                             <div class="comment">
-                                <img src='Comment A.jpg' alt="Profile">
+                                <img src='${comment.profile}' alt="Profile">
                                 <span><small>${comment.username}<br>${comment.text}<br>${comment.date}</small></span>
                             </div>
                         `).join('')}
