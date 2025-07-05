@@ -170,7 +170,7 @@
                     const score_leisure = feature.properties.score_leisure || 5;
                     const overallScore = (score_os * 20) + (score_malls * 20) + (score_leisure * 20) + (publicScoresByTown[town] + 10) * 2;
 		            const scorePercentage = overallScore; // Convert to percentage (0-100);
-                    leftInfo.innerHTML = `<h3>Accessibility score</h3>
+                    leftInfo.innerHTML = `<h3>Development score</h3>
                         <div class="donut-chart" style="--score-percentage: ${scorePercentage}%;" data-score="${scorePercentage}"></div>
                         <div>Open space: <div class="progress-bar"><div class="progress" style="width: ${score_os * 100}%; background: #4CAF50;">${score_os * 10}</div></div></div>
                         <div>Shopping malls: <div class="progress-bar"><div class="progress" style="width: ${score_malls * 100}%; background: #2196F3;">${score_malls * 10}</div></div></div>
