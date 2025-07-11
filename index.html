@@ -19,7 +19,7 @@
             font-family: Calibri;
         }
         #left-info { left: 20px; width: 200px; }
-        #right-info { right: 20px; width: 200px; }
+        #right-info { right: 20px; width: 250px; }
         .progress-bar {
             height: 20px;
             background: #e0e0e0;
@@ -94,11 +94,18 @@
         };
 
         // Define conclusions for each town
-        const conclusionsByTown = {
-            "Fanling": "Fanling offers diverse recreational facilities like North District Park and Fanling Hong Lok Park, well-connected by Fanling MTR and minibuses, supporting pedestrian access. However, limited parking and narrow access routes, as seen in Fanling Centre Parking, hinder vehicle mobility, while safety issues in playgrounds like Cheung Wah Estate reduce family appeal.\nFor the Northern Metropolis, planners should prioritize regular maintenance for safety, expand parking with EV charging, balance green and commercial spaces, address environmental issues like mosquitoes, preserve cultural assets, and avoid sacrificing recreational spaces, as seen with Pak Fuk Children’s Playground’s replacement.",
-            "Sheung Shui": "Sheung Shui boasts ample leisure facilities, such as Po Wing Road Sports Centre and North District Park, accessible via Sheung Shui MTR and nearby car parks, but the MTR station divides northern and southern areas, complicating pedestrian connectivity, as noted in user feedback. Crowded parking, like Po Shek Wu Estate, limits vehicle access, and maintenance issues affect some facilities.\nFor the Northern Metropolis, planners should enhance pedestrian pathways to bridge the town’s divide, expand parking with EV charging, ensure consistent maintenance for safety, integrate commercial hubs with recreational spaces, and preserve cultural vibrancy like Shek Wu Hui Playground’s festive markets.",
-            "Tin Shui Wai": "Tin Shui Wai provides sufficient public facilities, including Tin Shui Wai Park and Hong Kong Wetland Park, supported by MTR and Light Rail access, facilitating pedestrian and transport mobility. However, its “city of misery” reputation, widely criticized online for isolated urban design, reflects poor planning, and issues like biting insects in playgrounds detract from appeal.\nFor the Northern Metropolis, planners should foster community vibrancy through mixed-use developments, improve maintenance to address environmental concerns, diversify recreational offerings, and avoid isolated layouts to create a connected, engaging urban environment, learning from Tin Shui Wai’s planning shortcomings.",
-            "Yuen Long": "Yuen Long features recreational spaces like Yuen Long Park and Fundays Playhouse, accessible via MTR, but aging malls and limited open spaces, as criticized online, restrict leisure options. Poor maintenance, such as dirty facilities at Town Park South Playground, and inadequate parking, like at Tai Kiu Market, hinder accessibility.\nFor the Northern Metropolis, planners should revitalize commercial areas, expand green spaces, enhance maintenance and safety, improve parking and transport connectivity, and avoid neglecting infrastructure to create a vibrant, accessible town, addressing Yuen Long’s outdated urban fabric."
+        const conclusion1ByTown = {
+            "Fanling": "Fanling offers diverse recreational facilities like North District Park and Fanling Hong Lok Park, well-connected by Fanling MTR and minibuses, supporting pedestrian access. However, limited parking and narrow access routes, as seen in Fanling Centre Parking, hinder vehicle mobility, while safety issues in playgrounds like Cheung Wah Estate reduce family appeal.",
+            "Sheung Shui": "Sheung Shui boasts ample leisure facilities, such as Po Wing Road Sports Centre and North District Park, accessible via Sheung Shui MTR and nearby car parks, but the MTR station divides northern and southern areas, complicating pedestrian connectivity, as noted in user feedback. Crowded parking, like Po Shek Wu Estate, limits vehicle access, and maintenance issues affect some facilities.",
+            "Tin Shui Wai": "Tin Shui Wai provides sufficient public facilities, including Tin Shui Wai Park and Hong Kong Wetland Park, supported by MTR and Light Rail access, facilitating pedestrian and transport mobility. However, its “city of misery” reputation, widely criticized online for isolated urban design, reflects poor planning, and issues like biting insects in playgrounds detract from appeal.", 
+            "Yuen Long": "Yuen Long features recreational spaces like Yuen Long Park and Fundays Playhouse, accessible via MTR, but aging malls and limited open spaces, as criticized online, restrict leisure options. Poor maintenance, such as dirty facilities at Town Park South Playground, and inadequate parking, like at Tai Kiu Market, hinder accessibility."
+        };
+
+        const conclusion2ByTown = {
+            "Fanling": "For the Northern Metropolis, planners should prioritize regular maintenance for safety, expand parking with EV charging, balance green and commercial spaces, address environmental issues like mosquitoes, preserve cultural assets, and avoid sacrificing recreational spaces, as seen with Pak Fuk Children’s Playground’s replacement.",
+            "Sheung Shui": "For the Northern Metropolis, planners should enhance pedestrian pathways to bridge the town’s divide, expand parking with EV charging, ensure consistent maintenance for safety, integrate commercial hubs with recreational spaces, and preserve cultural vibrancy like Shek Wu Hui Playground’s festive markets.",
+            "Tin Shui Wai": "For the Northern Metropolis, planners should foster community vibrancy through mixed-use developments, improve maintenance to address environmental concerns, diversify recreational offerings, and avoid isolated layouts to create a connected, engaging urban environment, learning from Tin Shui Wai’s planning shortcomings.",
+            "Yuen Long": "For the Northern Metropolis, planners should revitalize commercial areas, expand green spaces, enhance maintenance and safety, improve parking and transport connectivity, and avoid neglecting infrastructure to create a vibrant, accessible town, addressing Yuen Long’s outdated urban fabric."
         };
 
         map.on('load', () => {
@@ -164,11 +171,13 @@
                     // Right info box (Conclusions)
                     const rightInfo = document.getElementById('right-info');
                     const publicScore = publicScoresByTown[town] || 5; // Default to 5 if town not found
-                    const conclusion = conclusionsByTown[town] || "No conclusion available for this town.";
+                    const conclusion1 = conclusion1ByTown[town] || "No conclusion available for this town.";
+                    const conclusion2 = conclusion2ByTown[town] || "No conclusion available for this town.";
                     rightInfo.style.display = 'block';
                     rightInfo.innerHTML = `<h3>Public opinions</h3>
                         <div>Rating from the public: <div class="progress-bar"><div class="progress" style="width: ${(publicScore + 10) * 5}%; background: #9C27B0;">${publicScore}</div></div></div>
-                        <div class="comment"><small>${conclusion}</small></div>`;
+                        <div class="comment"><small>${conclusion1}</small></div><br>
+                        <div class="comment"><small>${conclusion2}</small></div>`;
                 }
             });
 
