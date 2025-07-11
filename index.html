@@ -16,7 +16,7 @@
             background: white;
             border: 1px solid #ccc;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-	    font-family: Calibri;
+            font-family: Calibri;
         }
         #left-info { left: 20px; width: 200px; }
         #right-info { right: 20px; width: 200px; }
@@ -61,7 +61,7 @@
         }
         .comment {
             margin: 10px 0;
-	    font-family: Calibri
+            font-family: Calibri;
         }
         .comment img {
             width: 30px;
@@ -85,36 +85,12 @@
             zoom: 11
         });
 
-        // Define public scores for each town
-        const publicScoresByTown = {
-            "Tin Shui Wai": 3,
-            "Yuen Long": -4,
-            "Sheung Shui": 1,
-            "Fanling": 6
-        };
-
-        // Define comments for each town
-        const commentsByTown = {
-            "Tin Shui Wai": [
-                { profile: 'Comment A.jpg', username: "hoiyaul", text: "天水圍商場多，但係入面得個吉，得7仔同一間麵包鋪", date: "2025-07-04" },
-                { profile: 'Comment B.jpg', username: "wongwong._.", text: "公園好多蚊，唔太舒服", date: "2025-07-03" },
-                { profile: 'Comment D.jpg', username: "fongchungsirrr", text: "圖書館喺正地鐵站隔離，又靚又方便！", date: "2025-07-02" }
-            ],
-            "Yuen Long": [
-                { profile: 'Comment D.jpg', username: "hellothisisderekah", text: "元朗大馬路點解咁窄！？", date: "2025-07-04" },
-                { profile: 'Comment C.jpg', username: "wong_fe.lix", text: "夜市真係好墟冚", date: "2025-07-01" },
-                { profile: 'Comment A.jpg', username: "trafficobserver", text: "最近博愛加燈位，真係冇咁塞", date: "2025-06-21" }
-            ],
-            "Sheung Shui": [
-                { profile: 'Comment B.jpg', username: "sheksammm__", text: "上水出名烏煙瘴氣，起唔起公園都一樣", date: "2025-07-02" },
-                { profile: 'Comment A.jpg', username: "natalielovesducks", text: "市場新鮮食材多", date: "2025-06-25" },
-                { profile: 'Comment C.jpg', username: "gregorywangngocheung", text: "全港最多樹嘅路就喺天平，呢度算綠化㗎喇", date: "2025-06-23" }
-            ],
-            "Fanling": [
-                { profile: 'Comment C.jpg', username: "raymondtong0524", text: "最近去保榮路嗰間體育館，其實可唔可以開多間？我喺嘉福行過嚟好遠。", date: "2025-06-30" },
-                { profile: 'Comment D.jpg', username: "y__05447", text: "逸峯商場好靚", date: "2025-06-29" },
-                { profile: 'Comment B.jpg', username: "gheuks2xla", text: "想有多個運動場", date: "2025-06-28" }
-            ]
+        // Define conclusions for each town
+        const conclusionsByTown = {
+            "Fanling": "Fanling offers diverse recreational facilities like North District Park and Fanling Hong Lok Park, well-connected by Fanling MTR and minibuses, supporting pedestrian access. However, limited parking and narrow access routes, as seen in Fanling Centre Parking, hinder vehicle mobility, while safety issues in playgrounds like Cheung Wah Estate reduce family appeal.\nFor the Northern Metropolis, planners should prioritize regular maintenance for safety, expand parking with EV charging, balance green and commercial spaces, address environmental issues like mosquitoes, preserve cultural assets, and avoid sacrificing recreational spaces, as seen with Pak Fuk Children’s Playground’s replacement.",
+            "Sheung Shui": "Sheung Shui boasts ample leisure facilities, such as Po Wing Road Sports Centre and North District Park, accessible via Sheung Shui MTR and nearby car parks, but the MTR station divides northern and southern areas, complicating pedestrian connectivity, as noted in user feedback. Crowded parking, like Po Shek Wu Estate, limits vehicle access, and maintenance issues affect some facilities.\nFor the Northern Metropolis, planners should enhance pedestrian pathways to bridge the town’s divide, expand parking with EV charging, ensure consistent maintenance for safety, integrate commercial hubs with recreational spaces, and preserve cultural vibrancy like Shek Wu Hui Playground’s festive markets.",
+            "Tin Shui Wai": "Tin Shui Wai provides sufficient public facilities, including Tin Shui Wai Park and Hong Kong Wetland Park, supported by MTR and Light Rail access, facilitating pedestrian and transport mobility. However, its “city of misery” reputation, widely criticized online for isolated urban design, reflects poor planning, and issues like biting insects in playgrounds detract from appeal.\nFor the Northern Metropolis, planners should foster community vibrancy through mixed-use developments, improve maintenance to address environmental concerns, diversify recreational offerings, and avoid isolated layouts to create a connected, engaging urban environment, learning from Tin Shui Wai’s planning shortcomings.",
+            "Yuen Long": "Yuen Long features recreational spaces like Yuen Long Park and Fundays Playhouse, accessible via MTR, but aging malls and limited open spaces, as criticized online, restrict leisure options. Poor maintenance, such as dirty facilities at Town Park South Playground, and inadequate parking, like at Tai Kiu Market, hinder accessibility.\nFor the Northern Metropolis, planners should revitalize commercial areas, expand green spaces, enhance maintenance and safety, improve parking and transport connectivity, and avoid neglecting infrastructure to create a vibrant, accessible town, addressing Yuen Long’s outdated urban fabric."
         };
 
         map.on('load', () => {
@@ -141,7 +117,7 @@
                 layout: {
                     'text-field': ['get', 'town'],
                     'text-size': 12,
-		    'text-font': ['Inter Regular']
+                    'text-font': ['Inter Regular']
                 }
             });
 
@@ -168,8 +144,8 @@
                     const score_os = feature.properties.score_os || 5;
                     const score_malls = feature.properties.score_malls || 5;
                     const score_leisure = feature.properties.score_leisure || 5;
-                    const overallScore = (score_os * 20) + (score_malls * 20) + (score_leisure * 20) + (publicScoresByTown[town] + 10) * 2;
-		            const scorePercentage = overallScore; // Convert to percentage (0-100);
+                    const overallScore = (score_os * 20) + (score_malls * 20) + (score_leisure * 20);
+                    const scorePercentage = overallScore; // Convert to percentage (0-100)
                     leftInfo.innerHTML = `<h3>Development score</h3>
                         <div class="donut-chart" style="--score-percentage: ${scorePercentage}%;" data-score="${scorePercentage}"></div>
                         <div>Open space: <div class="progress-bar"><div class="progress" style="width: ${score_os * 100}%; background: #4CAF50;">${score_os * 10}</div></div></div>
@@ -177,24 +153,12 @@
                         <div>Leisure facilities: <div class="progress-bar"><div class="progress" style="width: ${score_leisure * 100}%; background: #F44336;">${score_leisure * 10}</div></div></div>
                         <a href="https://ipetyourmouse.github.io/csdiprototype/">See isochrone map</a>`;
 
-                    // Right info box (Public opinions)
+                    // Right info box (Conclusions)
                     const rightInfo = document.getElementById('right-info');
-		    const publicScore = publicScoresByTown[town] || 5; // Default to 5 if town not found
-		    const comments = commentsByTown[town] || [
-                        { username: "geospatial_lab", text: "No comments available", date: "2025-07-04" },
-                        { username: "geospatial_lab", text: "No comments available", date: "2025-07-04" },
-                        { username: "geospatial_lab", text: "No comments available", date: "2025-07-04" }
-                    ];
-                    rightInfo.style.display = 'block';			
-                    rightInfo.innerHTML = `<h3>Public opinions</h3>
-                        <div>Response: <div class="progress-bar"><div class="progress" style="width: ${(publicScore + 10) * 5}%; background: #9C27B0;">${publicScore}</div></div></div>
-                        ${comments.map(comment => `
-                            <div class="comment">
-                                <img src='${comment.profile}' alt="Profile">
-                                <span><small>${comment.username}<br>${comment.text}<br>${comment.date}</small></span>
-                            </div>
-                        `).join('')}
-                    `;
+                    const conclusion = conclusionsByTown[town] || "No conclusion available for this town.";
+                    rightInfo.style.display = 'block';
+                    rightInfo.innerHTML = `<h3>Urban Planning Conclusion</h3>
+                        <div class="comment"><small>${conclusion}</small></div>`;
                 }
             });
 
