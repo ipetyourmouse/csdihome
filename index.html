@@ -85,6 +85,14 @@
             zoom: 11
         });
 
+        // Define public scores for each town
+        const publicScoresByTown = {
+            "Tin Shui Wai": 3,
+            "Yuen Long": -4,
+            "Sheung Shui": 1,
+            "Fanling": 6
+        };
+
         // Define conclusions for each town
         const conclusionsByTown = {
             "Fanling": "Fanling offers diverse recreational facilities like North District Park and Fanling Hong Lok Park, well-connected by Fanling MTR and minibuses, supporting pedestrian access. However, limited parking and narrow access routes, as seen in Fanling Centre Parking, hinder vehicle mobility, while safety issues in playgrounds like Cheung Wah Estate reduce family appeal.\nFor the Northern Metropolis, planners should prioritize regular maintenance for safety, expand parking with EV charging, balance green and commercial spaces, address environmental issues like mosquitoes, preserve cultural assets, and avoid sacrificing recreational spaces, as seen with Pak Fuk Children’s Playground’s replacement.",
@@ -155,9 +163,11 @@
 
                     // Right info box (Conclusions)
                     const rightInfo = document.getElementById('right-info');
+                    const publicScore = publicScoresByTown[town] || 5; // Default to 5 if town not found
                     const conclusion = conclusionsByTown[town] || "No conclusion available for this town.";
                     rightInfo.style.display = 'block';
-                    rightInfo.innerHTML = `<h3>Urban Planning Conclusion</h3>
+                    rightInfo.innerHTML = `<h3>Public opinions</h3>
+                        <div>Rating from the public: <div class="progress-bar"><div class="progress" style="width: ${(publicScore + 10) * 5}%; background: #9C27B0;">${publicScore}</div></div></div>
                         <div class="comment"><small>${conclusion}</small></div>`;
                 }
             });
